@@ -4,26 +4,20 @@ Simple Program with 3 Api To Send Message
 
 ## Dev Environment Setup
 
-### Docker
-First check your docker with following command
+### Python3
+Install python using homebrew
 ```
-docker -v
-```
-
-If docker already exists you can skip this section
-
-Install docker using homebrew 
-```
-brew install docker docker-compose docker-machine
-brew cask install virtualbox
-docker-machine create --driver virtualbox default
-docker-machine env default
-eval "$(docker-machine env default)"
-docker run hello-world
+brew install python3
 ```
 
-Or you can install Docker from the source, please go to the following link. 
-[Install Docker](https://docs.docker.com/install/)
+Or you can install python from the source, please go to the following link. 
+[Install Python 3](https://www.python.org/downloads/release/python-374/)  
+
+### Install packages
+Run the following command
+```
+pip install -r requirements.txt
+```
 
 ## Endpoint
 | Method  | Endpoint | Detail |
@@ -47,6 +41,5 @@ ws://localhost:8000/real-time-message
 ## How to run
 Run the following command
 ```
-docker build -t tornado-websocket .
-docker run -it tornado-websocket 
+python main.py
 ``` 
