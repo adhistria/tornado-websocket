@@ -1,4 +1,4 @@
-from repository.message_repository import MessageRepository
+from repositories.message_repository import MessageRepository
 import unittest
 
 
