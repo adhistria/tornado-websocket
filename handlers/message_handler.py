@@ -1,22 +1,17 @@
-import tornado.web
+from .base_handler import BaseHandler
 import tornado.websocket
 from tornado import ioloop
 import json
 import logging
 
 
-class MessageHandler(tornado.web.RequestHandler):
+class MessageHandler(BaseHandler):
     def initialize(self, message_service) -> None:
         self._message_service = message_service
 
     def get(self):
         messages = self._message_service.get_messages()
-        data = {
-            'data': messages,
-            'success': True,
-        }
-        self.set_status(200)
-        self.write(data)
+        self.success(messages)
 
     def post(self):
         try:
@@ -25,13 +20,9 @@ class MessageHandler(tornado.web.RequestHandler):
             server = ioloop.IOLoop.current()
             server.add_callback(RealTimeMessageHandler.send_message, message)
             reponse = self._message_service.store(message)
-            data = {'data': reponse, 'success': True}
-            self.set_status(200)
-            self.write(data)
+            self.success(reponse)
         except:
-            data = {'data': None, 'success': False}
-            self.write(data)
-            self.set_status(500)
+            self.error()
 
 
 class RealTimeMessageHandler(tornado.websocket.WebSocketHandler):
