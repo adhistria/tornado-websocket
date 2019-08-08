@@ -8,3 +8,4 @@ class MessageRepository(object):
 
     def save(self, message):
         self._messages.append(message)
+        return message

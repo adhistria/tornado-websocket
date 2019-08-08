@@ -22,3 +22,11 @@ class TestMessageRepository(unittest.TestCase):
 
         expected_message = ['New Message']
         self.assertEqual(messages, expected_message)
+
+    def test_save_data_and_should_return_message(self):
+        message_repository = MessageRepository()
+
+        response = message_repository.save('New Message')
+
+        expected_response = 'New Message'
+        self.assertEqual(response, expected_response)
