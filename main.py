@@ -3,6 +3,7 @@ from repositories.message_repository import MessageRepository
 from services.message_service import MessageService
 from handlers.message_handler import MessageHandler, RealTimeMessageHandler
 from handlers.page_handler import IndexHandler
+import logging
 import tornado
 
 TEMPLATE_PATH = './templates'
@@ -25,6 +26,7 @@ def main():
     server = tornado.httpserver.HTTPServer(app)
     server.bind(PORT)
     server.start()
+    logging.info('Server Start')
     ioloop.IOLoop.current().start()
 
 
