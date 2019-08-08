@@ -1,8 +1,12 @@
 from tornado import ioloop, web, options, httpserver
 from repositories.message_repository import MessageRepository
 from services.message_service import MessageService
-from handlers.message_handler import MessageHandler
+from handlers.message_handler import MessageHandler, RealTimeMessageHandler
+from handlers.page_handler import IndexHandler
 import tornado
+
+TEMPLATE_PATH = './templates'
+PORT = 8000
 
 
 def main():
@@ -11,11 +15,16 @@ def main():
     message_service = MessageService(message_repository)
 
     app = tornado.web.Application(handlers=[
+        (r"/real-time-message", RealTimeMessageHandler),
+        (r"/", IndexHandler),
         (r"/message", MessageHandler, {'message_service': message_service}),
-    ])
+        (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': TEMPLATE_PATH}),
+    ],
+        template_path=TEMPLATE_PATH
+    )
     server = tornado.httpserver.HTTPServer(app)
-    server.bind(8000)
-    server.start(0)
+    server.bind(PORT)
+    server.start()
     ioloop.IOLoop.current().start()
 
 
