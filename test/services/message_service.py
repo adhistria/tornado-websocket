@@ -15,3 +15,13 @@ class TestMessageService(unittest.TestCase):
 
         expected_message = []
         self.assertEqual(messages, expected_message)
+
+    def test_store_message_when_message_in_repository_empty(self):
+        message_service = MessageService(self.mock_image_repository)
+
+        self.mock_image_repository.save.return_value = 'New Message'
+        response = message_service.store('New Message')
+
+        expected_reponse = 'New Message'
+        self.assertEqual(response, expected_reponse)
+

@@ -4,3 +4,7 @@ class MessageService(object):
 
     def get_messages(self):
         return self.message_repository.find_all()
+
+    def store(self, message):
+        return self.message_repository.save(message)
+
