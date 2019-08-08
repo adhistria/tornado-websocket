@@ -43,3 +43,9 @@ Run the following command
 ```
 python main.py
 ``` 
+
+## How to run the test
+Run the following command
+```
+nosetests
+``` 
