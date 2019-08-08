@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>List Message</title>
+</head>
+<body>
+    <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+    <div class="message_holder"></div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script>
+
+    var host = window.location.host;
+    var ws = new WebSocket('ws://'+host+'/real-time-message');
+    var $message = $('#message');
+
+    ws.onopen = function(){
+      console.log('open');
+    };
+
+    ws.onmessage = function(message){
+      console.log('new message');
+      if( typeof message.data!== 'undefined' ) {
+        $( 'h3' ).remove()
+        $( 'div.message_holder' ).append( '<div><b style="color: #000">'+message.data+'</div>' )
+      }
+    }
+
+
+</script>
+</html>
